@@ -1,5 +1,4 @@
 // 全局常量配置
-// ⚠️ 重要：请将下方的链接替换为您自己的 Cloudflare Worker 地址
 const PROXY_URL = 'https://ss.shihuijian.dpdns.org/?url=';    
 // 例如: const PROXY_URL = 'https://douban-proxy.您的域名.workers.dev/?url=';
 
