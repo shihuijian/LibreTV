@@ -23,7 +23,7 @@ const SITE_CONFIG = {
 };
 
 // ==========================================
-//   🚀 聚合 API 站点配置 (已更新高速源)
+//   🚀 聚合 API 站点配置
 // ==========================================
 const API_SITES = {
     // --- 第一梯队：速度快，资源全，HTTPS支持好 ---
@@ -71,8 +71,24 @@ function extendAPISites(newSites) {
     Object.assign(API_SITES, newSites);
 }
 
-// 暴露到全局
+// -------------------------------------------------
+// 👇 之前缺失的关键配置：API_CONFIG 👇
+// -------------------------------------------------
+const API_CONFIG = {
+    search: {
+        path: '?ac=detail&wd=',
+        pagePath: '?ac=detail&wd={query}&pg={page}',
+        maxPages: 2,  // 每次搜索最大并发获取页数，建议2-3页
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'Accept': 'application/json'
+        }
+    }
+};
+
+// 暴露到全局 (非常重要，否则 search.js 找不到它们)
 window.API_SITES = API_SITES;
+window.API_CONFIG = API_CONFIG;
 window.extendAPISites = extendAPISites;
 
 
