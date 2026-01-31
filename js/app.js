@@ -700,4 +700,11 @@ async function search() {
                     <p class="mt-1 text-sm text-gray-500">请尝试其他关键词或更换数据源</p>
                 </div>
             `;
-            hideLoading
+            hideLoading();
+            return;
+        }
+
+        // 有搜索结果时，才更新URL
+        try {
+            // 使用URI编码确保特殊字符能够正确显示
+            const encodedQuery = encodeURIComponent(query
