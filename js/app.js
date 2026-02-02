@@ -76,29 +76,31 @@ function initAPICheckboxes() {
     normaldiv.appendChild(normalTitle);
 
     // 创建普通API源的复选框
-    Object.keys(API_SITES).forEach(apiKey => {
-        const api = API_SITES[apiKey];
-        if (api.adult) return; // 跳过成人内容API，稍后添加
+    if (typeof API_SITES !== 'undefined') {
+        Object.keys(API_SITES).forEach(apiKey => {
+            const api = API_SITES[apiKey];
+            if (api.adult) return; // 跳过成人内容API，稍后添加
 
-        const checked = selectedAPIs.includes(apiKey);
+            const checked = selectedAPIs.includes(apiKey);
 
-        const checkbox = document.createElement('div');
-        checkbox.className = 'flex items-center';
-        checkbox.innerHTML = `
-            <input type="checkbox" id="api_${apiKey}" 
-                   class="form-checkbox h-3 w-3 text-blue-600 bg-[#222] border border-[#333]" 
-                   ${checked ? 'checked' : ''} 
-                   data-api="${apiKey}">
-            <label for="api_${apiKey}" class="ml-1 text-xs text-gray-400 truncate">${api.name}</label>
-        `;
-        normaldiv.appendChild(checkbox);
+            const checkbox = document.createElement('div');
+            checkbox.className = 'flex items-center';
+            checkbox.innerHTML = `
+                <input type="checkbox" id="api_${apiKey}" 
+                       class="form-checkbox h-3 w-3 text-blue-600 bg-[#222] border border-[#333]" 
+                       ${checked ? 'checked' : ''} 
+                       data-api="${apiKey}">
+                <label for="api_${apiKey}" class="ml-1 text-xs text-gray-400 truncate">${api.name}</label>
+            `;
+            normaldiv.appendChild(checkbox);
 
-        // 添加事件监听器
-        checkbox.querySelector('input').addEventListener('change', function () {
-            updateSelectedAPIs();
-            checkAdultAPIsSelected();
+            // 添加事件监听器
+            checkbox.querySelector('input').addEventListener('change', function () {
+                updateSelectedAPIs();
+                checkAdultAPIsSelected();
+            });
         });
-    });
+    }
     container.appendChild(normaldiv);
 
     // 添加成人API列表
@@ -128,29 +130,31 @@ function addAdultAPI() {
         adultdiv.appendChild(adultTitle);
 
         // 创建成人API源的复选框
-        Object.keys(API_SITES).forEach(apiKey => {
-            const api = API_SITES[apiKey];
-            if (!api.adult) return; // 仅添加成人内容API
+        if (typeof API_SITES !== 'undefined') {
+            Object.keys(API_SITES).forEach(apiKey => {
+                const api = API_SITES[apiKey];
+                if (!api.adult) return; // 仅添加成人内容API
 
-            const checked = selectedAPIs.includes(apiKey);
+                const checked = selectedAPIs.includes(apiKey);
 
-            const checkbox = document.createElement('div');
-            checkbox.className = 'flex items-center';
-            checkbox.innerHTML = `
-                <input type="checkbox" id="api_${apiKey}" 
-                       class="form-checkbox h-3 w-3 text-blue-600 bg-[#222] border border-[#333] api-adult" 
-                       ${checked ? 'checked' : ''} 
-                       data-api="${apiKey}">
-                <label for="api_${apiKey}" class="ml-1 text-xs text-pink-400 truncate">${api.name}</label>
-            `;
-            adultdiv.appendChild(checkbox);
+                const checkbox = document.createElement('div');
+                checkbox.className = 'flex items-center';
+                checkbox.innerHTML = `
+                    <input type="checkbox" id="api_${apiKey}" 
+                           class="form-checkbox h-3 w-3 text-blue-600 bg-[#222] border border-[#333] api-adult" 
+                           ${checked ? 'checked' : ''} 
+                           data-api="${apiKey}">
+                    <label for="api_${apiKey}" class="ml-1 text-xs text-pink-400 truncate">${api.name}</label>
+                `;
+                adultdiv.appendChild(checkbox);
 
-            // 添加事件监听器
-            checkbox.querySelector('input').addEventListener('change', function () {
-                updateSelectedAPIs();
-                checkAdultAPIsSelected();
+                // 添加事件监听器
+                checkbox.querySelector('input').addEventListener('change', function () {
+                    updateSelectedAPIs();
+                    checkAdultAPIsSelected();
+                });
             });
-        });
+        }
         container.appendChild(adultdiv);
     }
 }
